@@ -4,7 +4,7 @@ server:
 spring:
   # 服务名称
   application:
-    name: wjz_note
+    name: util_project
   # redis配置
   redis:
     host: 127.0.0.1

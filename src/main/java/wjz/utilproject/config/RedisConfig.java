@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class RedisConfig {
 
     private String host;
+
     private int port;
 
 
