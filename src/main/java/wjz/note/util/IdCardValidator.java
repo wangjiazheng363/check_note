@@ -1,4 +1,4 @@
-package org.note.unit;
+package wjz.note.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

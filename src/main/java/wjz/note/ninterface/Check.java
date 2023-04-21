@@ -1,7 +1,7 @@
-package org.note.ninterface;
+package wjz.note.ninterface;
 
-import org.note.enums.CheckTypeEnums;
-import org.note.ninterface.impl.ParamConstraintValidated;
+import wjz.note.enums.CheckTypeEnums;
+import wjz.note.ninterface.impl.ParamConstraintValidated;
 import org.springframework.lang.Nullable;
 
 import javax.validation.Constraint;

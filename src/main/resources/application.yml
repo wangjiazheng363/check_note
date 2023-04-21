@@ -5,3 +5,7 @@ spring:
   # 服务名称
   application:
     name: wjz_note
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379

@@ -1,8 +1,8 @@
-package org.note.test.vo;
+package wjz.note.test.vo;
 
 import lombok.Data;
-import org.note.enums.CheckTypeEnums;
-import org.note.ninterface.Check;
+import wjz.note.enums.CheckTypeEnums;
+import wjz.note.ninterface.Check;
 
 import javax.validation.Valid;
 

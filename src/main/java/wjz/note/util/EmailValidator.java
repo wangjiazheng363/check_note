@@ -1,4 +1,4 @@
-package org.note.unit;
+package wjz.note.util;
 
 /***
  *

@@ -1,10 +1,10 @@
-package org.note.ninterface.impl;
+package wjz.note.ninterface.impl;
 
-import org.note.enums.CheckTypeEnums;
-import org.note.ninterface.Check;
-import org.note.unit.EmailValidator;
-import org.note.unit.IdCardValidator;
-import org.note.unit.PhoneValidator;
+import wjz.note.enums.CheckTypeEnums;
+import wjz.note.ninterface.Check;
+import wjz.note.util.EmailValidator;
+import wjz.note.util.IdCardValidator;
+import wjz.note.util.PhoneValidator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
