@@ -2,6 +2,7 @@ package wjz.utilproject.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import wjz.utilproject.test.service.TestService;
 import wjz.utilproject.test.vo.User;
 import wjz.utilproject.util.RedisUtil;
 import org.springframework.validation.annotation.Validated;
@@ -18,30 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/test")
 @Slf4j
 public class TestController {
+
     @Autowired
-    private RedisUtil redisUtil;
+    private TestService testService;
 
     @PostMapping("/test")
     public Object test(@Validated @RequestBody User user) {
-
-        try {
-            // 创建RedisUtil实例并连接到Redis服务器
-            redisUtil.connect();
-
-            // 设置一个字符串类型的键值对，并设置过期时间为60秒
-            String key = "demo-key";
-            String value = "demo-value";
-            redisUtil.set(key, value, 60);
-
-            // 获取该键的值并打印
-            String result = redisUtil.get(key, String.class);
-            System.out.println("Value of '" + key + "' is: " + result);
-
-            // 关闭Redis连接
-            redisUtil.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         return "注解校验通过";
+    }
+
+    @PostMapping("/redisTest")
+    public void redisTest(){
+        testService.redisTest();
     }
 }
