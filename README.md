@@ -1,5 +1,5 @@
 v1.0
-简单的字段校验注解 @check
+简单的字段校验注解 @check /n
 参数：
     CheckTypeEnums checkType 校验类型 
     String[] paramValues 合法化参数校验值  {"man", "woman"} 注解会根据 paramValues 中的数据进行判断 传入值不在 paramValues 内的会返回false
