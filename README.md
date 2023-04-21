@@ -7,4 +7,6 @@ v1.0
 v1.1
 项目增加了redis操作工具类
 
+v2.0
+项目更改为utilproject
 
