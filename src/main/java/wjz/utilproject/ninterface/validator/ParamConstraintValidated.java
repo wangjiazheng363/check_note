@@ -1,6 +1,7 @@
-package wjz.utilproject.ninterface;
+package wjz.utilproject.ninterface.validator;
 
 import wjz.utilproject.enums.CheckTypeEnums;
+import wjz.utilproject.ninterface.Check;
 import wjz.utilproject.util.EmailValidator;
 import wjz.utilproject.util.IdCardValidator;
 import wjz.utilproject.util.PhoneValidator;

@@ -2,7 +2,9 @@ package wjz.utilproject.test.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wjz.utilproject.ninterface.Unique;
 import wjz.utilproject.test.service.TestService;
+import wjz.utilproject.test.vo.User;
 import wjz.utilproject.util.RedisUtil;
 
 /***
@@ -36,6 +38,15 @@ public class TestServiceImpl implements TestService {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+//    @Autowired
+//    private UserDao userDao;
+
+    @Override
+    @Unique(entityClass = User.class, fieldName = "user_name")
+    public void addUser(User user) {
+//        userDao.addUser(user);
     }
 
 }

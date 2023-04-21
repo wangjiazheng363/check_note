@@ -1,5 +1,8 @@
 package wjz.utilproject.test.service;
 
+import wjz.utilproject.ninterface.Unique;
+import wjz.utilproject.test.vo.User;
+
 /***
  *
  * Author:WangJiazheng
@@ -10,4 +13,8 @@ public interface TestService {
 
 
     void redisTest();
+
+    @Unique(entityClass = User.class, fieldName = "user_name")
+    void addUser(User user);
+
 }

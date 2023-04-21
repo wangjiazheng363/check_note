@@ -2,6 +2,7 @@ package wjz.utilproject.ninterface;
 
 import wjz.utilproject.enums.CheckTypeEnums;
 import org.springframework.lang.Nullable;
+import wjz.utilproject.ninterface.validator.ParamConstraintValidated;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

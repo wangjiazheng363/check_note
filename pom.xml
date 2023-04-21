@@ -76,6 +76,18 @@
             <artifactId>jackson-core</artifactId>
             <version>2.12.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.17</version>
+        </dependency>
+
+        <!-- BeanUtils的依赖 -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
     </dependencies>
 
     <!-- 定义项目的构建信息 -->
