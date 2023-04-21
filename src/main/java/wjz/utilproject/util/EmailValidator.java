@@ -1,4 +1,4 @@
-package wjz.note.util;
+package wjz.utilproject.util;
 
 /***
  *

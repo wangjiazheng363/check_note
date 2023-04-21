@@ -1,4 +1,4 @@
-package wjz.note.config;
+package wjz.utilproject.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

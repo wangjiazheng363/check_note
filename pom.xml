@@ -10,8 +10,8 @@
         <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>wjz.note</groupId>
-    <artifactId>wjz_note</artifactId>
+    <groupId>wjz.utilproject</groupId>
+    <artifactId>utilproject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

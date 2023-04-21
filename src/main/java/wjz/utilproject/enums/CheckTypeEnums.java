@@ -1,4 +1,4 @@
-package wjz.note.enums;
+package wjz.utilproject.enums;
 
 /***
  *

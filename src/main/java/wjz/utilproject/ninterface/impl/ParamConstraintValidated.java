@@ -1,10 +1,10 @@
-package wjz.note.ninterface.impl;
+package wjz.utilproject.ninterface.impl;
 
-import wjz.note.enums.CheckTypeEnums;
-import wjz.note.ninterface.Check;
-import wjz.note.util.EmailValidator;
-import wjz.note.util.IdCardValidator;
-import wjz.note.util.PhoneValidator;
+import wjz.utilproject.enums.CheckTypeEnums;
+import wjz.utilproject.ninterface.Check;
+import wjz.utilproject.util.EmailValidator;
+import wjz.utilproject.util.IdCardValidator;
+import wjz.utilproject.util.PhoneValidator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

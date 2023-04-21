@@ -1,9 +1,9 @@
-package wjz.note.test;
+package wjz.utilproject.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import wjz.note.test.vo.User;
-import wjz.note.util.RedisUtil;
+import wjz.utilproject.test.vo.User;
+import wjz.utilproject.util.RedisUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

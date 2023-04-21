@@ -1,6 +1,6 @@
-package wjz.note;
+package wjz.utilproject;
 
-import wjz.note.util.RedisUtil;
+import wjz.utilproject.util.RedisUtil;
 
 /***
  *
