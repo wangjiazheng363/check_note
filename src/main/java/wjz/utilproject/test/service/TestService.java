@@ -14,7 +14,7 @@ public interface TestService {
 
     void redisTest();
 
-    @Unique(entityClass = User.class, fieldName = "user_name")
     void addUser(User user);
+
 
 }

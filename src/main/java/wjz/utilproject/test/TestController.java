@@ -32,4 +32,9 @@ public class TestController {
     public void redisTest(){
         testService.redisTest();
     }
+
+    @PostMapping("/addTest")
+    public void addTest(@Validated @RequestBody User user){
+        testService.addUser(user);
+    }
 }

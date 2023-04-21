@@ -14,10 +14,11 @@ import javax.validation.Valid;
  */
 @Data
 public class User {
+
+    private Long pk;
     /**
      * 姓名
      * */
-
     private String name;
 
     /**

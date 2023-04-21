@@ -1,6 +1,8 @@
 package wjz.utilproject.test.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 import wjz.utilproject.ninterface.Unique;
 import wjz.utilproject.test.service.TestService;
@@ -14,6 +16,8 @@ import wjz.utilproject.util.RedisUtil;
  *
  */
 @Service
+@Slf4j
+@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 public class TestServiceImpl implements TestService {
 
     @Autowired
@@ -40,12 +44,10 @@ public class TestServiceImpl implements TestService {
         }
     }
 
-//    @Autowired
-//    private UserDao userDao;
-
     @Override
-    @Unique(entityClass = User.class, fieldName = "user_name")
+    @Unique(entityClass = User.class, fieldName = "name")
     public void addUser(User user) {
+        log.info("校验完成");
 //        userDao.addUser(user);
     }
 
