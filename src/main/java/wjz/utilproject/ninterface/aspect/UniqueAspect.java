@@ -50,16 +50,25 @@ public class UniqueAspect {
             }
             StringBuilder whereClauseBuilder = new StringBuilder();
             Object[] argsArray = new Object[fieldNames.length + 1];
-            for (int i = 0; i < fieldNames.length; i++) {
-                String fieldName = fieldNames[i];
-                Object fieldValue = paramMap.get(fieldName);
-                if (fieldValue == null) {
-                    throw new IllegalArgumentException("非法参数：校验参数内容为空");
+            if (fieldNames.length == 1) {
+                whereClauseBuilder.append(camelToUnderline(fieldNames[0])).append(" = ?");
+                argsArray[0] = paramMap.get(fieldNames[0]).toString();
+            } else {
+                whereClauseBuilder.append("(");
+                for (int i = 0; i < fieldNames.length; i++) {
+                    String fieldName = fieldNames[i];
+                    Object fieldValue = paramMap.get(fieldName);
+                    if (fieldValue == null) {
+                        throw new IllegalArgumentException("非法参数：校验参数内容为空");
+                    }
+                    whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? OR ");
+                    argsArray[i] = fieldValue.toString();
                 }
-                whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? AND ");
-                argsArray[i] = fieldValue.toString();
+                whereClauseBuilder.delete(whereClauseBuilder.length() - 4, whereClauseBuilder.length());
+                whereClauseBuilder.append(")");
             }
-            whereClauseBuilder.append(camelToUnderline(mainPkName)).append(" != ?");
+
+            whereClauseBuilder.append(" AND ").append(camelToUnderline(mainPkName)).append(" != ?");
             argsArray[argsArray.length - 1] = id;
             String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
                     " WHERE " + whereClauseBuilder.toString();
@@ -69,17 +78,26 @@ public class UniqueAspect {
         } else {
             StringBuilder whereClauseBuilder = new StringBuilder();
             Object[] argsArray = new Object[fieldNames.length];
-            for (int i = 0; i < fieldNames.length; i++) {
-                String fieldName = fieldNames[i];
-                Object fieldValue = paramMap.get(fieldName);
-                if (fieldValue == null) {
-                    throw new IllegalArgumentException("非法参数：校验参数内容为空");
+            if (fieldNames.length == 1) {
+                whereClauseBuilder.append(camelToUnderline(fieldNames[0])).append(" = ?");
+                argsArray[0] = paramMap.get(fieldNames[0]).toString();
+            } else {
+                whereClauseBuilder.append("(");
+                for (int i = 0; i < fieldNames.length; i++) {
+                    String fieldName = fieldNames[i];
+                    Object fieldValue = paramMap.get(fieldName);
+                    if (fieldValue == null) {
+                        throw new IllegalArgumentException("非法参数：校验参数内容为空");
+                    }
+                    whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? OR ");
+                    argsArray[i] = fieldValue.toString();
                 }
-                whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? AND ");
-                argsArray[i] = fieldValue.toString();
+                whereClauseBuilder.delete(whereClauseBuilder.length() - 4, whereClauseBuilder.length());
+                whereClauseBuilder.append(")");
             }
             String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
                     " WHERE " + whereClauseBuilder.toString();
+            System.out.println(sql);
             int count = jdbcTemplate.queryForObject(sql, Integer.class, argsArray);
             isOk = count <= 0;
         }
