@@ -41,18 +41,18 @@ public class UniqueAspect {
         // 获取实体对象的所有属性值
         Map<String, Object> paramMap = BeanUtil.getProperties(args[0]);
         Boolean isOk = true;
-        // 判断是否存在名为 "id" 的属性，如果存在则代表是修改操作
+        // 判断校验类型  是新增还是修改
         if (UniqueTypeEnums.EDIT.equals(uniqueType)){
-            // 获取 "id" 属性的值作为主键
+            // 获取主键的值
             Object id = paramMap.get(mainPkName);
             // 构建 SQL 查询语句，查询除主键所在的数据外是否存在相同的记录
             String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() +
-                    " WHERE " + fieldName + " = ? AND mainPkName != ?";
+                    " WHERE " + camelToUnderline(fieldName) + " = ? AND camelToUnderline(mainPkName)  != ?";
             int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString(), id);
             isOk = count <= 0;
         } else {
             // 如果没有 "id" 属性，则代表是新增操作，直接查询是否存在相同的记录即可
-            String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " WHERE " + fieldName + " = ?";
+            String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " WHERE " + camelToUnderline(fieldName)  + " = ?";
             int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString());
             isOk = count <= 0;
         }
@@ -61,6 +61,27 @@ public class UniqueAspect {
         }
         return ((ProceedingJoinPoint) point).proceed();
 
+    }
+
+    /***
+     * 驼峰转字符串方法
+     * @param str
+     * @return
+     */
+    public static String camelToUnderline(String str) {
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (Character.isUpperCase(c)) {
+                sb.append('_').append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
 }

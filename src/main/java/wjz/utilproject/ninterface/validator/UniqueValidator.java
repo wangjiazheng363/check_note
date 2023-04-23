@@ -46,7 +46,6 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
         if (UniqueTypeEnums.EDIT.equals(uniqueType)){
             // 获取 "id" 属性的值作为主键
             Object id = props.get(mainPkName);
-
             // 构建 SQL 查询语句，查询除主键所在的数据外是否存在相同的记录
             String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() +
                     " WHERE " + fieldName + " = ? AND mainPkName != ?";
