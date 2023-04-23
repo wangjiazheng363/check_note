@@ -2,6 +2,7 @@ package wjz.utilproject.ninterface;
 
 import wjz.utilproject.enums.UniqueTypeEnums;
 
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /***
@@ -39,4 +40,8 @@ public @interface Unique {
      * 提示信息
      */
     String message() default "已存在相同的记录";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }
