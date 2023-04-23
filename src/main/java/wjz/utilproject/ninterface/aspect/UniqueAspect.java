@@ -2,26 +2,14 @@ package wjz.utilproject.ninterface.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.core.DefaultParameterNameDiscoverer;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import wjz.utilproject.enums.UniqueTypeEnums;
 import wjz.utilproject.ninterface.Unique;
 import wjz.utilproject.util.BeanUtil;
-
-import java.beans.Expression;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /***
