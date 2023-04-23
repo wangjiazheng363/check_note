@@ -1,12 +1,10 @@
 package wjz.utilproject.test;
 
-import com.mysql.cj.xdevapi.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import wjz.utilproject.test.service.TestService;
 import wjz.utilproject.test.vo.User;
-import wjz.utilproject.util.RedisUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +37,17 @@ public class TestController {
     public String addTest(@Validated @RequestBody User user){
         try {
             testService.addUser(user);
+            return "保存成功";
+        }catch (Exception e){
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    @PostMapping("/editTest")
+    public String editTest(@Validated @RequestBody User user){
+        try {
+            testService.editUser(user);
             return "保存成功";
         }catch (Exception e){
             e.printStackTrace();

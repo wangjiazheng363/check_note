@@ -17,4 +17,5 @@ public interface TestService {
     void addUser(User user);
 
 
+    void editUser(User user);
 }

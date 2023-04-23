@@ -48,11 +48,13 @@ public class UniqueAspect {
             // 构建 SQL 查询语句，查询除主键所在的数据外是否存在相同的记录
             String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() +
                     " WHERE " + camelToUnderline(fieldName) + " = ? AND " + camelToUnderline(mainPkName)  + "!= ?";
+            System.out.println(sql);
             int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString(), id);
             isOk = count <= 0;
         } else {
             // 如果没有 "id" 属性，则代表是新增操作，直接查询是否存在相同的记录即可
             String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " WHERE " + camelToUnderline(fieldName)  + " = ?";
+            System.out.println(sql);
             int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString());
             isOk = count <= 0;
         }

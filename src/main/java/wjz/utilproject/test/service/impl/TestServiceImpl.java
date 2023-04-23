@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
+import wjz.utilproject.enums.UniqueTypeEnums;
 import wjz.utilproject.ninterface.Unique;
 import wjz.utilproject.test.service.TestService;
 import wjz.utilproject.test.vo.User;
@@ -45,10 +46,15 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    @Unique(entityClass = User.class, fieldName = "name")
+    @Unique(entityClass = User.class, fieldName = "idCode")
     public void addUser(User user) {
         log.info("校验完成");
-//        userDao.addUser(user);
+    }
+
+    @Override
+    @Unique(entityClass = User.class, fieldName = "idCode" ,uniqueType = UniqueTypeEnums.EDIT   )
+    public void editUser(User user) {
+        log.info("校验完成");
     }
 
 }
