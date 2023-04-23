@@ -47,7 +47,7 @@ public class UniqueAspect {
             Object id = paramMap.get(mainPkName);
             // 构建 SQL 查询语句，查询除主键所在的数据外是否存在相同的记录
             String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() +
-                    " WHERE " + camelToUnderline(fieldName) + " = ? AND camelToUnderline(mainPkName)  != ?";
+                    " WHERE " + camelToUnderline(fieldName) + " = ? AND " + camelToUnderline(mainPkName)  + "!= ?";
             int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString(), id);
             isOk = count <= 0;
         } else {
