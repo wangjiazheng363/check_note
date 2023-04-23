@@ -30,39 +30,63 @@ public class UniqueAspect {
     //所以无法通过点注解或者点方法来进这个类 可全局搜索查询 （目前没找到更好的方法，找到请告诉我 ）
     @Before("@annotation(unique)")
     public Object around(JoinPoint point, Unique unique) throws Throwable {
-        //获取目前请求参数
+        // 获取目前请求参数
         Object[] args = point.getArgs();
-        //获取自定义注解参数
+        // 获取自定义注解参数
         Class<?> entityClass = unique.entityClass();
-        String fieldName = unique.fieldName();
+        String[] fieldNames = unique.fieldNames();
         UniqueTypeEnums uniqueType = unique.uniqueType();
         String mainPkName = unique.mainPkName();
         String message = unique.message();
         // 获取实体对象的所有属性值
         Map<String, Object> paramMap = BeanUtil.getProperties(args[0]);
         Boolean isOk = true;
-        // 判断校验类型  是新增还是修改
-        if (UniqueTypeEnums.EDIT.equals(uniqueType)){
-            // 获取主键的值
+        // 判断校验类型是新增还是修改
+        if (UniqueTypeEnums.EDIT.equals(uniqueType)) {
+        // 获取主键的值
             Object id = paramMap.get(mainPkName);
-            // 构建 SQL 查询语句，查询除主键所在的数据外是否存在相同的记录
-            String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() +
-                    " WHERE " + camelToUnderline(fieldName) + " = ? AND " + camelToUnderline(mainPkName)  + "!= ?";
+            if (id == null) {
+                throw new IllegalArgumentException("非法参数：主键内容为空");
+            }
+            StringBuilder whereClauseBuilder = new StringBuilder();
+            Object[] argsArray = new Object[fieldNames.length + 1];
+            for (int i = 0; i < fieldNames.length; i++) {
+                String fieldName = fieldNames[i];
+                Object fieldValue = paramMap.get(fieldName);
+                if (fieldValue == null) {
+                    throw new IllegalArgumentException("非法参数：校验参数内容为空");
+                }
+                whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? AND ");
+                argsArray[i] = fieldValue.toString();
+            }
+            whereClauseBuilder.append(camelToUnderline(mainPkName)).append(" != ?");
+            argsArray[argsArray.length - 1] = id;
+            String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
+                    " WHERE " + whereClauseBuilder.toString();
             System.out.println(sql);
-            int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString(), id);
+            int count = jdbcTemplate.queryForObject(sql, Integer.class, argsArray);
             isOk = count <= 0;
         } else {
-            // 如果没有 "id" 属性，则代表是新增操作，直接查询是否存在相同的记录即可
-            String sql = "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " WHERE " + camelToUnderline(fieldName)  + " = ?";
-            System.out.println(sql);
-            int count = jdbcTemplate.queryForObject(sql, Integer.class, paramMap.get(fieldName).toString());
+            StringBuilder whereClauseBuilder = new StringBuilder();
+            Object[] argsArray = new Object[fieldNames.length];
+            for (int i = 0; i < fieldNames.length; i++) {
+                String fieldName = fieldNames[i];
+                Object fieldValue = paramMap.get(fieldName);
+                if (fieldValue == null) {
+                    throw new IllegalArgumentException("非法参数：校验参数内容为空");
+                }
+                whereClauseBuilder.append(camelToUnderline(fieldName)).append(" = ? AND ");
+                argsArray[i] = fieldValue.toString();
+            }
+            String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
+                    " WHERE " + whereClauseBuilder.toString();
+            int count = jdbcTemplate.queryForObject(sql, Integer.class, argsArray);
             isOk = count <= 0;
         }
-        if (!isOk){
+        if (!isOk) {
             throw new IllegalArgumentException(message);
         }
         return ((ProceedingJoinPoint) point).proceed();
-
     }
 
     /***

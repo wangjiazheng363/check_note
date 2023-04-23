@@ -46,13 +46,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    @Unique(entityClass = User.class, fieldName = "idCode")
+    @Unique(entityClass = User.class, fieldNames = {"idCode"})
     public void addUser(User user) {
         log.info("校验完成");
     }
 
     @Override
-    @Unique(entityClass = User.class, fieldName = "idCode" ,uniqueType = UniqueTypeEnums.EDIT   )
+    @Unique(entityClass = User.class, fieldNames = {"idCode"} ,uniqueType = UniqueTypeEnums.EDIT   )
     public void editUser(User user) {
         log.info("校验完成");
     }

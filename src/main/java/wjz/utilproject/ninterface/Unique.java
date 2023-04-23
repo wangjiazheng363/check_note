@@ -24,8 +24,7 @@ public @interface Unique {
     /**
      * 校验的字段名称
      */
-    String fieldName();
-
+    String[] fieldNames();
     /***
      * 校验类型   新建会校验全表，修改则校验 不包含当前主键的值是否重复  修改时 可以通过 增加参数  主键字段名称
      * @return
@@ -41,7 +40,4 @@ public @interface Unique {
      */
     String message() default "已存在相同的记录";
 
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
 }
