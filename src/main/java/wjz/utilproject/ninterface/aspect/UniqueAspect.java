@@ -27,7 +27,6 @@ public class UniqueAspect {
 
     //这个是环绕增强 通过 @annotation(注解名称) 来定义这个哪个自定义注解的切面类
     //注意 不管在哪个方法上定义了这个注解 调对应的方法后会先进这个方法 然后通过 point.proceed() 调目标方法
-    //所以无法通过点注解或者点方法来进这个类 可全局搜索查询 （目前没找到更好的方法，找到请告诉我 ）
     @Before("@annotation(unique)")
     public Object around(JoinPoint point, Unique unique) throws Throwable {
         // 获取目前请求参数
@@ -70,7 +69,7 @@ public class UniqueAspect {
 
             whereClauseBuilder.append(" AND ").append(camelToUnderline(mainPkName)).append(" != ?");
             argsArray[argsArray.length - 1] = id;
-            String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
+            String sql = "SELECT COUNT(1) FROM " + camelToUnderline( entityClass.getSimpleName()) +
                     " WHERE " + whereClauseBuilder.toString();
             System.out.println(sql);
             int count = jdbcTemplate.queryForObject(sql, Integer.class, argsArray);
@@ -95,7 +94,7 @@ public class UniqueAspect {
                 whereClauseBuilder.delete(whereClauseBuilder.length() - 4, whereClauseBuilder.length());
                 whereClauseBuilder.append(")");
             }
-            String sql = "SELECT COUNT(1) FROM " + entityClass.getSimpleName() +
+            String sql = "SELECT COUNT(1) FROM " + camelToUnderline( entityClass.getSimpleName()) +
                     " WHERE " + whereClauseBuilder.toString();
             System.out.println(sql);
             int count = jdbcTemplate.queryForObject(sql, Integer.class, argsArray);
@@ -119,7 +118,7 @@ public class UniqueAspect {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (Character.isUpperCase(c)) {
+            if (Character.isUpperCase(c) && i!=0) {
                 sb.append('_').append(Character.toLowerCase(c));
             } else {
                 sb.append(c);
