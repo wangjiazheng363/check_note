@@ -18,4 +18,6 @@ public interface TestService {
 
 
     void editUser(User user);
+
+    void copyTableFromDatabaseAToDatabaseB();
 }

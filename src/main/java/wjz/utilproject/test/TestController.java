@@ -54,4 +54,8 @@ public class TestController {
             return e.getMessage();
         }
     }
+    @PostMapping("/copyData")
+    public void copyData() {
+        testService.copyTableFromDatabaseAToDatabaseB();
+    }
 }

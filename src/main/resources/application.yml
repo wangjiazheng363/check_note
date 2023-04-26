@@ -10,8 +10,27 @@ spring:
     host: 127.0.0.1
     port: 6379
   # 数据库配置
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/vmi-20230404?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   datasource:
-    url: jdbc:mysql://localhost:3306/vmi-20230404?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    datasourcea:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      jdbcUrl: jdbc:oracle:thin:@//192.168.31.208:1521/pdborcl
+      username: root
+      password: 123456
+    datasourceb:
+      jdbcUrl: jdbc:mysql://localhost:3306/hsfi?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+datasourceAJdbcTemplate:
+  datasource: datasourcea
+  platform:
+
+datasourceBJdbcTemplate:
+  datasource: datasourceb
+  platform: mysql
