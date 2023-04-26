@@ -21,7 +21,7 @@ v2.1
 增加注解 Unique 用于校验 数据入库时 不可重复的字段
 
 v2.2
-修改注解 Unique 实现方式改为 使用spring boot 前置通知拦截
+修改注解 Unique 实现方式改为 使用spring AOP 前置通知拦截
 
 v2.3
 新增 ora数据库数据导入mysql数据库 demo
