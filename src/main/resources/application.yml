@@ -18,7 +18,7 @@ spring:
   datasource:
     datasourcea:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      jdbcUrl: jdbc:oracle:thin:@//192.168.31.208:1521/pdborcl
+      jdbcUrl: jdbc:oracle:thin:@//localhost:1521/pdborcl
       username: root
       password: 123456
     datasourceb:
